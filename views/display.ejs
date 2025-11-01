@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <title>Queries</title>
+</head>
+
+<body class="font-monospace">
+    <%- include("partials/header.ejs")%>
+        <%- include("partials/navbar.ejs")%>
+            
+            <div class="bg-danger text-white p-2 m-0">
+                <h6 class="card-subtitle mb-2 fst-italic" style="--bs-text-opacity: .75;">Current Query:</h6>
+                <h5 class="card-title">
+                    <%=address%>
+                </h5>
+            </div>
+            <div class="card">
+                <div class="card-body bg-danger-subtle">
+
+                    <!-- <div style="grid-template-columns: 1fr 1fr;" class="d-grid gap-1"> -->
+                    <div class="countainer">
+                        <div class="row row-cols-3">
+                            <div class="card col-3 shadow roudned bg-white p-4 m-2">
+                                <p class="card-text"><span class="fw-bold">Temperature: </span>
+                                    <%= weatherData.current.temp %>°F
+                                </p>
+                                 <p class="card-text"><span class="fw-bold">Feels Like: </span>
+                                    <%= weatherData.current.feels_like %>°F
+                                </p>
+                                <p class="card-text"><span class="fw-bold">UV Index: </span>
+                                    <%= weatherData.current.uvi %>
+                                </p>
+                                <p class="card-text"><span class="fw-bold">Humidity: </span>
+                                    <%= weatherData.current.humidity %>%
+                                </p>
+                            </div>
+                            <div class="card col-3 shadow roudned bg-white p-4 m-2">
+                                <p class="card-text"><span class="fw-bold">Description:</span>
+                                    <%= weatherData.current.weather[0].description %>
+                                </p>
+                                <p class="card-text"><span class="fw-bold">Wind Speed:</span>
+                                    <%= weatherData.current.wind_speed %>mph
+                                </p>
+                                <p class="card-text"><span class="fw-bold">Wind Degree:</span>
+                                    <%= weatherData.current.wind_deg %>°
+                                </p>
+                                <p class="card-text"><span class="fw-bold">Atmospheric Pressure:</span>
+                                    <%= weatherData.current.pressure %>hPa
+                                </p>
+                            </div>
+                            <%console.log(weatherData)%>
+                            <div class="card col-auto p-3 m-1"><img id="queryPhoto" src="<%=mapURL%>" width="750px" height="200px" alt=""></div>
+                            
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <%- include("partials/previous.ejs")%>
+            <%- include("partials/footer.ejs")%>
+                <!-- <h2>
+            The current weather at <%=address%> is: <%= weatherData.current.temp %> with <%=
+                        weatherData.current.weather[0].description %>
+        </h2> -->
+        <!-- <script>
+            let photos = [];
+            let counter = 0;
+            photos[counter++] = document.querySelector('#queryPhoto')
+        </script> -->
+        
+</body>
+
+</html>

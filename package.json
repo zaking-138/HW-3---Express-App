@@ -1,0 +1,20 @@
+{
+  "name": "templates",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "bootstrap-icons": "^1.13.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "react": "^19.2.0",
+    "states-us": "^1.1.1"
+  }
+}

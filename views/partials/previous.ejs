@@ -1,0 +1,66 @@
+<!-- <div class="card">
+    <div class="card-body"> -->
+<div class="bg-danger p-2">
+    <h5 class="card-title fw-bold bg-danger text-white p-2 shadow">Previous Queries:</h5>
+</div>
+<!-- </div>
+</div> -->
+<%if (previousResponses.length == 0){%>
+    <div class="card p-2 m-2">
+        <h3 class="card-body text-danger shadow">No previous queries found...</h3>
+    </div>
+<%}%>
+<% for (let responses of previousResponses) {%>
+    <div class="shadow card m-2">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-body-secondary fst-italic">Query <%=responses.number%>:</h6>
+            <h5 class="card-title">
+                <span class="fw-bold">
+                    <%=responses.address%>
+                </span> <span class="h6 fst-italic fw-lighter">@ <%=responses.date%></span>
+            </h5>
+            
+            <div class="collapse" id="collapseExample<%=responses.number%>">
+                <div class="countainer">
+                        <div class="row row-cols-3">
+                            <div class="card col-3 shadow roudned bg-white p-4 m-2">
+                                <p class="card-text"><span class="fw-bold">Temperature: </span>
+                                    <%= responses.data.current.temp %>°F
+                                </p>
+                                 <p class="card-text"><span class="fw-bold">Feels Like: </span>
+                                    <%= responses.data.current.feels_like %>°F
+                                </p>
+                                <p class="card-text"><span class="fw-bold">UV Index: </span>
+                                    <%= responses.data.current.uvi %>
+                                </p>
+                                <p class="card-text"><span class="fw-bold">Humidity: </span>
+                                    <%= responses.data.current.humidity %>%
+                                </p>
+                            </div>
+                            <div class="card col-3 shadow roudned bg-white p-4 m-2">
+                                <p class="card-text"><span class="fw-bold">Description:</span>
+                                    <%= responses.data.current.weather[0].description %>
+                                </p>
+                                <p class="card-text"><span class="fw-bold">Wind Speed:</span>
+                                    <%= responses.data.current.wind_speed %>mph
+                                </p>
+                                <p class="card-text"><span class="fw-bold">Wind Degree:</span>
+                                    <%= responses.data.current.wind_deg %>°
+                                </p>
+                                <p class="card-text"><span class="fw-bold">Atmospheric Pressure:</span>
+                                    <%= responses.data.current.pressure %>hPa
+                                </p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline-danger m-1" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseExample<%=responses.number%>" aria-expanded="false"
+                aria-controls="collapseExample<%=responses.number%>">
+                View
+            </button>
+        </div>
+    </div>
+    <%}%>
