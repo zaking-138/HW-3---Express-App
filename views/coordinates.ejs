@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <title>Home Screen</title>
+</head>
+
+<body class="font-monospace">
+    <%- include("partials/header.ejs")%>
+        <%- include("partials/navbar.ejs")%>
+            <div class="bg-danger p-2">
+                <h5 class="card-title fw-bold bg-danger text-white p-2 shadow">Previous Queries:</h5>
+            </div>
+            <%if (previousResponses.length==0){%>
+                <div class="card p-2 m-2">
+                    <h3 class="card-body text-danger shadow">No previous queries found...</h3>
+                </div>
+                <%}%>
+                    <% for (let responses of previousResponses) {%>
+                        <div class="shadow card m-2">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-body-secondary fst-italic">Query
+                                    <%=responses.number%>:
+                                </h6>
+                                <h5 class="card-title">
+                                    <span class="fw-bold">
+                                        <%=responses.address%>
+                                    </span> <span class="h6 fst-italic fw-lighter">@ <%=responses.date%></span>
+                                </h5>
+
+                                <div class="collapse" id="collapseExample<%=responses.number%>">
+                                    <div class="container-fluid">
+                                        <div class="row row-cols-3">
+                                            <div class="card col-fill shadow roudned bg-white p-4 m-2">
+                                                <span>
+                                                    <h3>Latitude:</h3> <%=responses.coords.lat%>
+                                                </span>
+                                            </div>
+                                            <div class="card col-fill shadow roudned bg-white p-4 m-2">
+                                                <span>
+                                                    <h3>Longitude:</h3> <%=responses.coords.lng%>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-danger m-1" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample<%=responses.number%>" aria-expanded="false"
+                                aria-controls="collapseExample<%=responses.number%>">
+                                View
+                            </button>
+                            <%}%>
+                                <%- include("partials/footer.ejs")%>
+</body>
+
+</html>

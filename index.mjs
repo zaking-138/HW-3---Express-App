@@ -26,29 +26,44 @@ let currentPage
 app.get('/', async (req, res) => {
    currentPage = 'home'
    res.render('home.ejs', { states, currentPage })
-});
+})
 
-async function getData(address) {
-   // Pull latitude and longitude of location from Google's geocode API.
-   let geoResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${keyGoogle}`)
+app.get('/getCoordinates', async(req, res) => {
+   currentPage = 'coordinates'
+   res.render('coordinates.ejs', {currentPage, previousResponses})
+})
+
+async function getCoords(url) {
+   let geoResponse = await fetch(url)
    let geoData = await geoResponse.json();
    let coordinates = geoData.results[0].geometry.location
    const lat = coordinates.lat
    const lng = coordinates.lng
+   return {
+      lat: lat,
+      lng: lng
+   }
+}
+
+async function getData(address) {
+   // Pull latitude and longitude of location from Google's geocode API.
+   let geoURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${keyGoogle}`
+   const coords = await getCoords(geoURL);
+   console.log(coords)
 
    // Pull current weather location using OpenWeather.
-   let weatherResponse = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly,daily,alerts&units=imperial&appid=${keyOpenWeather}`)
+   let weatherResponse = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${coords.lat}&lon=${coords.lng}&exclude=minutely,hourly,daily,alerts&units=imperial&appid=${keyOpenWeather}`)
    let weatherData = await weatherResponse.json();
    
    let timestamp = new Date();
    
-   record(weatherData, address, timestamp)
+   record(weatherData, address, timestamp, coords)
    return weatherData;
 }
 
 // Captures user queries in an array.
-async function record(data, address, date){
-   previousResponses[responseCounter] = {number:++responseCounter, date:date, address:address, data:data}
+async function record(data, address, date, coords){
+   previousResponses[responseCounter] = {number:++responseCounter, date:date, coords:coords, address:address, data:data}
 }
 
 // Call getData() with inputted address.
